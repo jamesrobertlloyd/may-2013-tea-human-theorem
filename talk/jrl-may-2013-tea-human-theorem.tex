@@ -1,0 +1,407 @@
+\input{../include/header_beamer}
+
+\usecolortheme{default}
+\xdefinecolor{Black}{rgb}{0,0,0}
+\xdefinecolor{White}{rgb}{1,1,1}
+\xdefinecolor{DarkBlue}{rgb}{0,0,.7}
+\xdefinecolor{DarkRed}{rgb}{.7,0,0}
+\xdefinecolor{Red}{rgb}{.85,0,0}
+\xdefinecolor{DarkGreen}{rgb}{0,.7,0}
+\xdefinecolor{DarkMagenta}{rgb}{.6,0,.6}
+\def\Black{\textcolor{Black}}
+\def\White{\textcolor{White}}
+\def\Blue{\textcolor{DarkBlue}}
+\def\Magenta{\textcolor{DarkMagenta}}
+\def\Red{\textcolor{Red}}
+\def\Green{\textcolor{DarkGreen}}
+\definecolor{camlightblue}{rgb}{0.601 , 0.8, 1}
+
+\usepackage{alltt}
+\usepackage{psfrag}
+\usepackage{pstool}
+
+\def\newarrow{\mbox{\begin{tikzpicture}
+             \useasboundingbox{(-3pt,-4.5pt) rectangle (19pt,1pt)};
+             \draw[->] (0,-0.07)--(17pt,-0.07);\end{tikzpicture}}}
+
+\title[] % (optional, use only with long paper titles)
+{An experiment concerning mathematical writing}
+
+\author % (optional, use only with lots of authors)
+{James Robert Lloyd}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[] % (optional, but mostly needed)
+{University of Cambridge}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{May 2013}
+
+\subject{Talks}
+
+\usetikzlibrary{shapes.geometric,arrows,chains,matrix,positioning,scopes}
+ \makeatletter
+ \tikzset{join/.code=\tikzset{after node path={%
+       \ifx\tikzchainprevious\pgfutil@empty\else(\tikzchainprevious)%
+       edge[every join]#1(\tikzchaincurrent)\fi}}
+ }
+ \tikzset{>=stealth',every on chain/.append style={join},
+   every join/.style={->}
+ }
+
+\tikzstyle{mybox} = [draw=white, rectangle]
+\usepackage{ifthen}
+\usepackage{booktabs}
+
+% Custom definitions
+\def\simiid{\sim_{\mbox{\tiny iid}}}
+
+\input{../include/commenting.tex}
+
+%% For submission, make all render blank.
+%\renewcommand{\LATER}[1]{}
+%\renewcommand{\fLATER}[1]{}
+%\renewcommand{\TBD}[1]{}
+%\renewcommand{\fTBD}[1]{}
+%\renewcommand{\PROBLEM}[1]{}
+%\renewcommand{\fPROBLEM}[1]{}
+%\renewcommand{\NA}[1]{#1}  %% Note, NA's pass through!
+
+%%%%
+% Paper specific stuff
+%%%%
+
+\newtheorem{thm}{Theorem}%[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+\newtheorem*{theorem*}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem*{definition*}{Definition}
+%\newtheorem{definition}[thm]{Definition}%[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[section]
+\newtheorem{rem}[thm]{Remark}
+
+\theoremstyle{remark}
+%\newtheorem{rem}{Remark}
+%\newtheorem{note}{Note}
+%\newtheorem{case}{Case}
+
+\newcommand{\eqd}{\overset{\,_{\!d}}{=}}
+\newcommand{\defn}[1]{\emph{#1}}
+
+\newcommand{\Law}{\mathcal{L}}
+
+\def\given{\,|\,}
+
+\def\SGinf{\mathbb{S}_{\infty}}
+
+\newcommand{\NonNegInts}{\mathbb{Z}_+}
+\newcommand{\Nats}{\mathbb{N}}
+\newcommand{\Rationals}{\mathbb{Q}}
+\newcommand{\Reals}{\mathbb{R}}
+
+\newcommand{\as}{\textrm{a.s.}}
+
+\def\[#1\]{\begin{align}#1\end{align}}
+\newcommand{\defas}{:=}
+
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\dist}{\ \sim\ }
+
+\newcommand{\kernel}{\kappa}
+\newcommand{\kernelmatrix}{K}
+\newcommand{\scalefactor}{s}
+\newcommand{\lengthscale}{\ell}
+\newcommand{\targets}{T}
+\newcommand{\noise}{\sigma_\targets}
+\newcommand{\pseudopoints}{\eta}
+\newcommand{\inputpoints}{\xi}
+\newcommand{\covhyppar}{\psi}
+\newcommand{\logistic}{\phi}
+
+\newcommand{\CompOrder}{\mathcal{O}}
+\def\graphspace{\mathbf{G}}
+\def\Uniform{\mbox{\rm Uniform}}
+\def\Bernoulli{\mbox{\rm Bernoulli}}
+\def\ie{i.e.,\ }
+\def\eg{e.g.,\ }
+\def\iid{i.i.d.\ }
+\def\simiid{\sim_{\mbox{\tiny iid}}}
+\def\simind{\sim_{\mbox{\tiny ind}}}
+\def\eqdist{\stackrel{\mbox{\tiny d}}{=}}
+\def\ahfunction{\theta}       
+\def\AHfunction{\Theta}           % A-H random function
+\def\AHvar{U}                     % A-H uniform variables
+\def\AHvaralt{V}                  % A-H uniform variables - for bipartite data
+\def\larray{W}                    % latent array sampled with A-H
+%\def\latentspace{\mathbf{W}}      % range of entries
+\def\latentspace{\mathcal{W}}      % range of entries
+\def\darray{X}                    % data array
+%\def\dataspace{\mathbf{X}}        % sample space
+\def\dataspace{\mathcal{X}}        % sample space
+\def\cfspace{\mathbf{C}}          % space of continuous functions
+%\def\GP{\mbox{\mathcal{GP}}}
+\def\GP{\mathcal{GP}}
+\def\likelihood{P}
+\def\CovData{C}
+\def\CovDataAlt{D}
+
+\begin{document}
+
+\small
+%% { 
+%%   \setbeamertemplate{footline}{\empty}
+%%   \begin{frame}
+%%     \titlepage
+%%   \end{frame}
+%% }
+%\renewcommand{\inserttotalframenumber}{11}
+
+%\input{../include/defs}
+
+\begin{frame}
+  \begin{block}{}
+    \titlepage
+  \end{block}
+\end{frame}
+
+\begin{frame}{Spot the odd one out (not the proposition)}
+  \begin{block}{Proposition}
+Let $X$ be a complete metric space and let $A$ be a closed subset of $X$. Then $A$ is complete.
+  \end{block}
+  \begin{block}{Proof 1}
+Consider an arbitrary Cauchy sequence $(x_n)_{\{n\in\Nats\}}$ in $A$. As $X$ is complete, $(x_n)$ has a limit in $X$. Suppose $\lim_{n\to\infty} = x$. Because $A$ is closed, $x$ belongs to $A$. We've proved that every Cauchy sequence in $A$ has a limit point in $A$. So $A$ is complete.
+  \end{block}
+  \begin{block}{Proof 2}
+Let $(a_n)$ be a Cauchy sequence in $A$. Then, since $X$ is complete, we have that $(a_n)$ converges. That is, there exists $a$ such that $a_n \to a$. Since $A$ is closed in $X$, $(a_n)$, is a sequence in $A$ and $a_n \to a$, we have that $a \in A$. Thus $(a_n)$ converges in $A$ and we are done.
+  \end{block}
+  \begin{block}{Proof 3}
+Let $(a_n)$ be a Cauchy sequence in $A$. We want to show that $(a_n)$ tends to a limit in $A$. Siunce $A$ is a subset of $X$, $(a_n)$ is a Cauchy sequence in $X$. Since $X$ is complete, $a_n \to a$, for some $a \in X$. Since $A$ is a closed subset of $X$, it must contain all its limit points, so $a \in A$. So $a_n \to a$ in $A$. So $A$ is complete.
+  \end{block}
+\end{frame}
+
+\begin{frame}{A mathematical writing Turing test}
+  \begin{block}{Computer identified 50\% of the time}
+    \begin{center}
+      \input{../figures/which}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Aims and purpose of the system}
+  \begin{itemize}
+    \item The program should not find a step hard if an experienced human finds it obvious.
+    \vspace{2\baselineskip}
+    \item The program should not be willing to do a step if an experienced human would be very reluctant to do it.
+    \vspace{2\baselineskip}
+    \item The methods that the program uses should not be specific to any domain of mathematics. Any domain specific behaviour should be the result of data that the program is given to work with.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A very brief description of the program}
+  \begin{itemize}
+    \item Natural language input parsed into list of assumed statements (hypotheses) and target statements
+    \vspace{1\baselineskip}
+    \item A list of rules is applied to the statements greedily, picking the first that can be applied
+    \begin{itemize}
+      \item Scope and order of rules is one of the main intellectual contributions of the work
+      \item Designed to give the desired human like behaviour
+    \end{itemize}
+    \vspace{1\baselineskip}
+    \item Each rule applied generates a sentence in the proof
+    \begin{itemize}
+      \item If the rules, and the ways of applying them, are sufficiently `human' then the output should resemble a stream of conciousness from a mathematician
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Worked example}
+  \begin{block}{Proposition}
+Let $X$ and $Y$ be metric spaces, let $f : X \to Y$ be continuous, and let $U$ be an open subset of $Y$.
+Then $f^{-1}(U)$ is an open subset of $X$.
+  \end{block}
+  \vspace{3\baselineskip}
+  \begin{block}{Automatically constructed proof}
+Let $x$ be an element of $f^{-1}(U)$. Then $f(x) \in U$. Therefore, since $U$ is open, there exists $\eta > 0$ such that $u \in U$ whenever $d(f(x), u) < \eta$. We would like to find $\delta > 0$ s.t.\ $y \in f^{-1}(U)$ whenever $d(x, y) < \delta$. But $y \in f^{-1}(U)$ if and only if $f(y) \in U$. We know that $f(y) \in U$ whenever $d(f(x), f(y)) < \eta$. Since $f$ is continuous, there exists $\theta > 0$ such that $d(f(x), f(y)) < \eta$ whenever $d(x, y) < \theta$. Therefore, setting $\delta = \theta$, we are done.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $U$ is open
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $f^{-1}(U)$ is open
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Input to program after parsing problem.
+    Also has `background' information \eg $X$, $Y$ are metric spaces, $f : X \to Y$ etc.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $U$ is open
+      \item $x \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $\exists\,\delta\,\forall\,y\quad d(x, y) < \delta \implies y \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Convert target into lower-level language
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $U$ is open
+      \item $f(x) \in U$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $\exists\,\delta\,\forall\,y\quad d(x, y) < \delta \implies y \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Rewrite of inverse statement
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $\forall\,u\quad d(f(x), u) < \eta \implies u \in U$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $\exists\,\delta\,\forall\,y\quad d(x, y) < \delta \implies y \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    `$f(x) \in U$' is the type of statement that can be provided as input to `$U$ is open'
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $\forall\,u\quad d(f(x), u) < \eta \implies u \in U$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $\forall\,y\quad d(x, y) < \delta^\bullet \implies y \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    No trivial operations available, temporarily assume $\delta$ is known
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $\forall\,u\quad d(f(x), u) < \eta \implies u \in U$
+      \item $d(x, y) < \delta^\bullet[\bar{y}]$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $y \in f^{-1}(U)$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    The target can now be split, remembering that $\delta$ cannot depend on $y$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $\forall\,u\quad d(f(x), u) < \eta \implies u \in U$
+      \item $d(x, y) < \delta^\bullet[\bar{y}]$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $f(y) \in U$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Rewrite of inverse statement
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $f$ is continuous
+      \item $d(x, y) < \delta^\bullet[\bar{y}]$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $d(f(x), f(y)) < \eta$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Replacement of target $Q(x)$ with $P(x)$ whenever there is a hypothesis $\forall\,u\,\,P(u) \implies Q(u)$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Worked example\ldots}
+  \begin{block}{Hypotheses}
+    \begin{itemize}
+      \item $d(x, y) < \delta^\bullet[\bar{y}]$
+    \end{itemize}
+  \end{block}
+  \begin{block}{Targets}
+    \begin{itemize}
+      \item $d(x, y) < \theta[x, \eta]$
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    Continuity of $f$ can be applied to the target in its current form. $\theta$ noted to depend on $x$ and $\eta$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Points for discussion}
+  \begin{itemize}
+    \item Should we try to make computers think like mathematicians?
+    \vspace{2\baselineskip}
+    \item Will this constraint always result in sub-state-of-the-art theorem prooving?
+    \vspace{2\baselineskip}
+    \item Can a system learn how to think like a mathematician, as opposed to a Cambridge senior wrangler polymath designing the system?
+    \vspace{2\baselineskip}
+    \item \ldots
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+

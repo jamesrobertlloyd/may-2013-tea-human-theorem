@@ -30,3 +30,6 @@
 *.vrb
 *.xdy
 *.tdo
+*~
+
+talk/jrl-may-2013-tea-human-theorem.pdf
